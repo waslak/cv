@@ -1,103 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Pharmacy Prescription</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        input, button {
-            padding: 10px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        button {
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .response {
-            margin-top: 20px;
-            padding: 10px;
-            background: #f9f9f9;
-            border: 1px solid #ccc;
-            white-space: pre-wrap;
-        }
-        .p1{
-            font-weight:bold;
-        }
-    </style>
-</head>
+<Header>
+
+</Header>
+<title>RIAYATI Post Office Support Tool</title>
+<link rel="stylesheet" href="./style.css">
 <body>
-
-    <h1>View Pharmacy Prescription</h1>
-
-    <form id="apiForm">
-        <div class="form-group">
-            <label for="reference">Reference</label>
-            <input type="text" id="reference" name="reference" required>
-        </div>
-        <div class="form-group">
-            <p class="p1"> Enter the one available patient ID below: </p>
-            <label for="patientIdentity">Patient Identity (Optional)</label>
-            <input type="text" id="patientIdentity" name="patientIdentity">
-        </div>
-        <div class="form-group">
-            <label for="memberID">Member ID (Optional)</label>
-            <input type="text" id="memberID" name="memberID">
-        </div>
-        <button type="submit">Submit</button>
-    </form>
-
-    <div class="response" id="response"></div>
-
-    <script>
-        document.getElementById('apiForm').addEventListener('submit', async function(event) {
-            event.preventDefault();
-
-            // Get form values
-            const reference = document.getElementById('reference').value;
-            const patientIdentity = document.getElementById('patientIdentity').value;
-            const memberID = document.getElementById('memberID').value;
-
-            // Prepare headers
-            const headers = new Headers();
-            headers.append('username', 'TestRiayatiF01');
-            headers.append('password', 'c238200d-35f2-46ed-80a5-5b9d123849dd');
-
-            // Prepare query parameters
-            const params = new URLSearchParams({ reference });
-            if (patientIdentity) params.append('patientIdentity', patientIdentity);
-            if (memberID) params.append('memberID', memberID);
-
-            try {
-                const response = await fetch(`https://tmbapi.riayati.ae:8083/api/ERX/ViewPharmacyPrescription?${params.toString()}`, {
-                    method: 'GET',
-                    headers: headers
-                });
-
-                const responseData = await response.json();
-                document.getElementById('response').textContent = JSON.stringify(responseData, null, 2);
-            } catch (error) {
-                document.getElementById('response').textContent = 'Error: ' + error.message;
-            }
-        });
-    </script>
+    <h1>RIAYATI Team Tool</h1>
+<div>
+    <a href="./viewpresciption.html">Prescription Download</a> <br>
+    <a href="./APItest.html">Service Validation</a>
+</div>
 
 </body>
-</html>
