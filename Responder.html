@@ -15,228 +15,140 @@
     #id-input-container, #disposition-container { margin-top: 10px; display: none; }
   </style>
 </head>
-<body>
-  <h2>API Request WebApp</h2>
+ <body>
+    <div class="container">
+      <h2>Authorization & Remittance WebApp</h2>
 
-  <!-- Base URL Selector -->
-  <label for="base-url">Select Base URL:</label>
-  <select id="base-url">
-    <option value="https://tmbapi.riayati.ae:8083">Riayati Production</option>
-    <option value="https://o-tmbapi.riayati.ae:8083">Riayati Onboarding</option>
-  </select>
-  <br><br>
+      <div class="form-group">
+        <label for="base-url">Select Base URL:</label>
+        <select id="base-url">
+          <option value="https://tmbapi.riayati.ae:8083">
+            Riayati Production
+          </option>
+          <option value="https://o-tmbapi.riayati.ae:8083" selected>
+            Riayati Onboarding
+          </option>
 
-  <!-- Endpoint Selector -->
-  <label for="api-endpoint">Select API Endpoint:</label>
-  <select id="api-endpoint" onchange="toggleInputs()">
-    <option value="/api/Authorization/GetNew">Payer_GetNew (GET)</option>
-    <option value="/api/Authorization/View?id=">Payer_View Transaction (GET)</option>
-    <option value="/api/Authorization/PostAuthorization">PostAuthorization (POST)</option>
-    <option value="/api/Authorization/SetDownloaded?id=">Payer_SetTransactionAsDownloaded (POST)</option>
-  </select>
-  <br><br>
+            Person register
+          </option>
+        </select>
+      </div>
 
-  <!-- ID input for View / SetDownloaded -->
-  <div id="id-input-container">
-    <label for="manual-id">Enter Transaction ID:</label>
-    <input type="text" id="manual-id" placeholder="Paste ID here">
-  </div>
+      <fieldset>
+        <legend>Select Mode</legend>
+        <div class="radio-group">
+          <label
+            ><input
+              type="radio"
+              name="mode"
+              value="auth"
+              checked
+              onclick="toggleMode()"
+            />
+            Authorization</label
+          >
+          <label
+            ><input
+              type="radio"
+              name="mode"
+              value="remit"
+              onclick="toggleMode()"
+            />
+            Remittance</label > 
 
-  <!-- DispositionFlag input for PostAuthorization -->
-  <div id="disposition-container">
-    <label for="disposition">DispositionFlag:</label>
-    <select id="disposition">
-      <option value="TEST" selected>TEST</option>
-      <option value="PRODUCTION">PRODUCTION</option>
-    </select>
-  </div>
-  <br>
-
-  <button onclick="sendRequest()">Send Request</button>
-
- <a href="index.html"> 
-            <button type="button" id="goBackButton">Main Page</button>
-            </a>
         </div>
+      </fieldset>
 
-  <h3>Response:</h3>
-  <div id="response">Waiting for response...</div>
+      <div class="form-group">
+        <label for="api-endpoint">Authorization API Endpoint:</label>
+        <select id="api-endpoint" onchange="toggleInputs()">
+          <option value="/api/Authorization/GetNew">Payer_GetNew (GET)</option>
+          <option value="/api/Authorization/View?id=">
+            Payer_View Transaction (GET)
+          </option>
+          <option value="/api/Authorization/PostAuthorization">
+            PostAuthorization (POST)
+          </option>
+          <option value="/api/Authorization/SetDownloaded?id=">
+            Payer_SetTransactionAsDownloaded (POST)
+          </option>
+        </select>
+      </div>
 
-  <h3>Saved Entities from GetNew:</h3>
-  <div id="saved-data">No data saved yet.</div>
+      <div class="form-group">
+        <label for="api-endpoint-remit">Remittance API Endpoint:</label>
+        <select id="api-endpoint-remit" onchange="toggleInputs()" disabled>
+          <option value="/api/Claim/GetNew">Payer_GetNew (GET)</option>
+          <option value="/api/Claim/View?id=">
+            Payer_View Transaction (GET)
+          </option>
+          <option value="/api/Claim/PostRemittance">
+            PostRemittance (POST)
+          </option>
+          <option value="/api/Claim/SetDownloaded?id=">
+            Payer_SetTransactionAsDownloaded (POST)
+          </option>
+        </select>
+      </div>
 
-  <h3>Parsed Data from View:</h3>
-  <div id="viewed-data">No view data yet.</div>
+      <div id="id-input-container" class="form-group hidden">
+        <label for="manual-id">Enter Transaction ID</label>
+        <input type="text" id="manual-id" placeholder="Paste ID here" />
+      </div>
 
-  <h3>Parsed Data from PostAuthorization:</h3>
-  <div id="posted-data">No post data yet.</div>
+      <div id="disposition-container" class="form-group hidden">
+        <label for="disposition">DispositionFlag:</label>
+        <select id="disposition">
+          <option value="TEST" selected>TEST</option>
+          <option value="PRODUCTION">PRODUCTION</option>
+        </select>
+       <select id="responsetype">
+    <option value="Full Payment" selected>Full Payment</option>  
+    <option value="Partial Payment">Partial Payment</option>
+    <option value="Full Rejection">Full Rejection</option>
+    <option value="PRCE">Approved with PRCE-015</option>
+</select>
+      </div>
 
-  <script>
-    let savedEntities = [];  
-    let viewedEntity = null; 
-    let postedEntity = null; 
-    let parsedViewData = {}; 
+      <div class="button-container">
+        <button onclick="sendRequest()" class="btn-primary">
+          Send Request
+        </button>
+        <button
+          id="generate-auth-btn"
+          onclick="generateAuthBody()"
+          class="btn-secondary hidden"
+        >
+          Generate PostAuthorization Body
+        </button>
+        <button
+          id="generate-remit-btn"
+          onclick="generateRemitBody()"
+          class="btn-secondary hidden"
+        >
+          Generate PostRemittance Body
+        </button>
 
-    function toggleInputs() {
-      const endpoint = document.getElementById("api-endpoint").value;
-      document.getElementById("id-input-container").style.display = 
-        (endpoint.includes("View") || endpoint.includes("SetDownloaded")) ? "block" : "none";
-      document.getElementById("disposition-container").style.display = 
-        (endpoint.includes("PostAuthorization")) ? "block" : "none";
-    }
+        <a href="../main.html"
+          ><button type="button" class="btn-secondary">Main Page</button></a
+        >
+      </div>
 
-    function buildPostAuthorizationBody(viewData, disposition) {
-      const transactionDate = moment().format("DD/MM/YYYY HH:mm");
-      const endDate = moment().add(45, "minutes").format("DD/MM/YYYY HH:mm");
+      <h3>Response:</h3>
+      <div id="response" class="response-box">Waiting for response...</div>
 
-      let activities = [];
-      if (viewData.activityCounter === 1) {
-        activities.push({
-          "ID": viewData.ActivityID,
-          "Type": viewData.activitytype,
-          "Code": viewData.Code,
-          "Quantity": viewData.quantity,
-          "Net": viewData.Net,
-          "List": 0,
-          "PaymentAmount": viewData.Net,
-          "DenialCode": "",
-          "Comments": "Authorization Cycle Test"
-        });
-      } else if (viewData.activityCounter > 1) {
-        for (let i = 0; i < viewData.MultipleACT.length; i++) {
-          const act = viewData.MultipleACT[i];
-          activities.push({
-            "ID": act.ID,
-            "Type": act.Type,
-            "Code": act.Code,
-            "Quantity": act.Quantity,
-            "Net": act.Net,
-            "PatientShare": act.PatientShare || 0,
-            "PaymentAmount": act.Net,
-            "DenialCode": "",
-            "Comments": "Authorization Cycle Test"
-          });
-        }
-      }
+      <h3>Saved Entities from GetNew:</h3>
+      <div id="saved-data" class="response-box">No data saved yet.</div>
 
-      return {
-        "PriorAuthorization": {
-          "Header": {
-            "SenderID": viewData.PAsenderID,
-            "ReceiverID": viewData.PAreceiverID,
-            "TransactionDate": transactionDate,
-            "RecordCount": 1,
-            "DispositionFlag": disposition,
-            "PayerID": viewData.PayerID
-          },
-          "Authorization": {
-            "Result": "Yes",
-            "ID": viewData.TransactionID,
-            "IDPayer": "Aq_" + moment().format("DDMMYYYYHHmmss"),
-            "DenialCode": "",
-            "Start": transactionDate,
-            "End": endDate,
-            "Comments": "Full approve",
-            "Activity": activities
-          }
-        }
-      };
-    }
+      <h3>Parsed Data from View:</h3>
+      <div id="viewed-data" class="response-box">No view data yet.</div>
 
-    async function sendRequest() {
-      const baseUrl = document.getElementById("base-url").value; 
-      let endpoint = document.getElementById("api-endpoint").value;
-      const manualId = document.getElementById("manual-id").value.trim();
-      const method = endpoint.includes("PostAuthorization") || endpoint.includes("SetDownloaded") ? "POST" : "GET";
-
-      if ((endpoint.includes("View") || endpoint.includes("SetDownloaded")) && manualId) {
-        endpoint += manualId;
-      }
-
-      // choose headers based on environment
-      let headers = { "Content-Type": "application/json" };
-      if (baseUrl.includes("https://tmbapi.riayati.ae:8083")) {
-        headers["username"] = "TestRiayatiT01";
-        headers["password"] = "48436ab5-66b4-4386-b6e3-2825c8b2b684";
-      } else {
-        headers["username"] = "MohapTPA003";
-        headers["password"] = "9f3bfdd1-6de8-4e63-9f92-507f3045fb3b";
-      }
-
-      let requestData = null;
-      if (endpoint.includes("PostAuthorization")) {
-        const disposition = document.getElementById("disposition").value;
-        requestData = buildPostAuthorizationBody(parsedViewData, disposition);
-      }
-
-      try {
-        const response = await axios({
-          method: method,
-          url: baseUrl + endpoint,
-          headers: headers,
-          data: requestData
-        });
-
-        document.getElementById("response").innerText = JSON.stringify(response.data, null, 2);
-
-        if (endpoint.includes("GetNew")) {
-          savedEntities = response.data.Entities || [];
-          document.getElementById("saved-data").innerText = "Saved Entities:\n" + JSON.stringify(savedEntities, null, 2);
-        }
-
-        if (endpoint.includes("View")) {
-          viewedEntity = response.data.Entity || null;
-          parsedViewData = {}; 
-          if (viewedEntity && viewedEntity.Authorization) {
-            parsedViewData.Authtype = viewedEntity.Authorization.Type;
-            parsedViewData.PAsenderID = viewedEntity.Header?.ReceiverID || "";
-            parsedViewData.PAreceiverID = viewedEntity.Header?.SenderID || "";
-            parsedViewData.PayerID = viewedEntity.Header?.PayerID || "";
-            parsedViewData.TransactionID = viewedEntity.Authorization.ID;
-            parsedViewData.PRTransactiondate = viewedEntity.Header?.TransactionDate || "";
-            const activities = viewedEntity.Authorization.Activity || [];
-            parsedViewData.activityCounter = activities.length;
-            if (activities.length === 1) {
-              parsedViewData.ActivityID = activities[0].ID;
-              parsedViewData.activitytype = activities[0].Type;
-              parsedViewData.Code = activities[0].Code;
-              parsedViewData.quantity = activities[0].Quantity;
-              parsedViewData.Net = activities[0].Net;
-            } else if (activities.length > 1) {
-              parsedViewData.MultipleACT = activities;
-            }
-          }
-          document.getElementById("viewed-data").innerText =
-            viewedEntity
-              ? "Parsed View Data:\n" + JSON.stringify(parsedViewData, null, 2)
-              : "No entity found in View response.";
-        }
-
-//        if (endpoint.includes("PostAuthorization")) {
-//   postedEntity = response.data || null; // keep full response
-//   document.getElementById("posted-data").innerText =
-//     postedEntity
-//       ? "Full PostAuthorization Response:\n" + JSON.stringify(postedEntity, null, 2)
-//       : "No response data found for PostAuthorization.";
-// }
-
-if (endpoint.includes("PostAuthorization")) {
-  // show the full raw response JSON only
-  document.getElementById("posted-data").innerText =
-    JSON.stringify(response.data, null, 2);
-}
-
-      } catch (error) {
-        if (error.response && error.response.data) {
-          document.getElementById("response").innerText =
-            "Error Response:\n" + JSON.stringify(error.response.data, null, 2);
-        } else {
-          document.getElementById("response").innerText =
-            "Error:\n" + (error.message || JSON.stringify(error, null, 2));
-        }
-    }
-  }
-  </script>
-</body>
+      <h3>Parsed Data from Post:</h3>
+      <div id="posted-data" class="response-box">No post data yet.</div>
+    </div>
+   <script src="./script.js"></script>
+ 
+  </body>
 </html>
+
 
