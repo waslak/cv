@@ -1,0 +1,1482 @@
+[
+	{
+		"name": "Cardio - thoracic Surgery",
+		"code": 520
+	},
+	{
+		"name": "Internal Medicine",
+		"code": 400
+	},
+	{
+		"name": "Infectious Diseases",
+		"code": 401
+	},
+	{
+		"name": "Nuclear Medicine",
+		"code": 402
+	},
+	{
+		"name": "Obstetrics and Gynecology",
+		"code": 523
+	},
+	{
+		"name": "Physical Medicine and Rehabilitation",
+		"code": 403
+	},
+	{
+		"name": "Anaesthesia",
+		"code": 404
+	},
+	{
+		"name": "Clinical Genetics (MD)",
+		"code": 525
+	},
+	{
+		"name": "Obs/Gyn",
+		"code": 122
+	},
+	{
+		"name": "Practical Midwife",
+		"code": 390
+	},
+	{
+		"name": "Otolaryngology",
+		"code": 405
+	},
+	{
+		"name": "Geriatric Medicine",
+		"code": 526
+	},
+	{
+		"name": "Ophthalmology",
+		"code": 406
+	},
+	{
+		"name": "Paediatrics",
+		"code": 407
+	},
+	{
+		"name": "General Surgery",
+		"code": 408
+	},
+	{
+		"name": "Pediatric Immunology & Allergy",
+		"code": 529
+	},
+	{
+		"name": "Obs/Gyn",
+		"code": 409
+	},
+	{
+		"name": "Oral & Maxillofacial Surgery",
+		"code": 485
+	},
+	{
+		"name": "Urology Technology",
+		"code": 530
+	},
+	{
+		"name": "Medical Laboratory",
+		"code": 270
+	},
+	{
+		"name": "Oncology",
+		"code": 124
+	},
+	{
+		"name": "Pediatric Critical Care",
+		"code": 531
+	},
+	{
+		"name": "Anatomic and Clinical Pathology",
+		"code": 411
+	},
+	{
+		"name": "Pathology",
+		"code": 290
+	},
+	{
+		"name": "Health Technology",
+		"code": 245
+	},
+	{
+		"name": "Pediatric Critical Care",
+		"code": 532
+	},
+	{
+		"name": "Sociology",
+		"code": 320
+	},
+	{
+		"name": "Registered Midwife",
+		"code": 391
+	},
+	{
+		"name": "Cardio-vascular Surgery",
+		"code": 412
+	},
+	{
+		"name": "Periodontics",
+		"code": 487
+	},
+	{
+		"name": "Interventional Cardiology",
+		"code": 392
+	},
+	{
+		"name": "Neurosurgery",
+		"code": 413
+	},
+	{
+		"name": "Internal Medicine",
+		"code": 4
+	},
+	{
+		"name": "Radiology",
+		"code": 151
+	},
+	{
+		"name": "Pediatric Hematology - Oncology",
+		"code": 534
+	},
+	{
+		"name": "Pediatric Surgery",
+		"code": 470
+	},
+	{
+		"name": "Anaesthesia",
+		"code": 171
+	},
+	{
+		"name": "Pharmacy",
+		"code": 293
+	},
+	{
+		"name": "Psychology",
+		"code": 294
+	},
+	{
+		"name": "Endocrinology",
+		"code": 471
+	},
+	{
+		"name": "Phlebotmy",
+		"code": 295
+	},
+	{
+		"name": "Biochemistry",
+		"code": 175
+	},
+	{
+		"name": "Clinical Dietetics and Nutrition",
+		"code": 230
+	},
+	{
+		"name": "Cardio - Surgery",
+		"code": 69
+	},
+	{
+		"name": "Dental Laboratory Technology",
+		"code": 351
+	},
+	{
+		"name": "Orthotics & Prosthetics",
+		"code": 287
+	},
+	{
+		"name": "Acupuncture",
+		"code": 167
+	},
+	{
+		"name": "Cardio - Thoracic Surgery",
+		"code": 70
+	},
+	{
+		"name": "Paramedics",
+		"code": 288
+	},
+	{
+		"name": "Chest Diseases",
+		"code": 71
+	},
+	{
+		"name": "Dental Prosthodontics",
+		"code": 145
+	},
+	{
+		"name": "Parasitology",
+		"code": 289
+	},
+	{
+		"name": "Child health",
+		"code": 72
+	},
+	{
+		"name": "Preventive & Community Dentistry (Public Health)",
+		"code": 60
+	},
+	{
+		"name": "Physio Therapy",
+		"code": 298
+	},
+	{
+		"name": "Clinical Chemistry",
+		"code": 73
+	},
+	{
+		"name": "Blood transfusion services",
+		"code": 179
+	},
+	{
+		"name": "Clinical Neurophysiology",
+		"code": 74
+	},
+	{
+		"name": "Paediatric Surgery",
+		"code": 133
+	},
+	{
+		"name": "Community Medicine",
+		"code": 76
+	},
+	{
+		"name": "Clinical Dietetics and Nutrition",
+		"code": 50
+	},
+	{
+		"name": "Critical Care Medicine",
+		"code": 481
+	},
+	{
+		"name": "Cardiovascular technology",
+		"code": 51
+	},
+	{
+		"name": "Optometrist",
+		"code": 52
+	},
+	{
+		"name": "Urology",
+		"code": 160
+	},
+	{
+		"name": "Physiotherapy",
+		"code": 54
+	},
+	{
+		"name": "Ophthalmology",
+		"code": 125
+	},
+	{
+		"name": "Operation Theatre ",
+		"code": 55
+	},
+	{
+		"name": "Rheumatology",
+		"code": 155
+	},
+	{
+		"name": "Nuclear Medicine",
+		"code": 281
+	},
+	{
+		"name": "Microbiology",
+		"code": 276
+	},
+	{
+		"name": "Occupational Therapy",
+		"code": 282
+	},
+	{
+		"name": "Restorative dentistry",
+		"code": 397
+	},
+	{
+		"name": "Vascular Surgeon",
+		"code": 162
+	},
+	{
+		"name": "Radiology",
+		"code": 398
+	},
+	{
+		"name": "Emergency Medical services",
+		"code": 165
+	},
+	{
+		"name": "Molecular Biology",
+		"code": 278
+	},
+	{
+		"name": "Beauty Tech",
+		"code": 56
+	},
+	{
+		"name": "Pharmacist",
+		"code": 57
+	},
+	{
+		"name": "Pharmacist Assistant",
+		"code": 58
+	},
+	{
+		"name": "Dental Oral Histopothalogy",
+		"code": 59
+	},
+	{
+		"name": "Medical Physics",
+		"code": 272
+	},
+	{
+		"name": "Clinical Hematology",
+		"code": 438
+	},
+	{
+		"name": "Obs/Gyn/IVF/Fertility",
+		"code": 393
+	},
+	{
+		"name": "Reproductive Endocrinology & Infertility",
+		"code": 439
+	},
+	{
+		"name": "Social Services",
+		"code": 319
+	},
+	{
+		"name": "Pulmonary Disease",
+		"code": 430
+	},
+	{
+		"name": "Radiology",
+		"code": 310
+	},
+	{
+		"name": "Pediatric Neurology",
+		"code": 431
+	},
+	{
+		"name": "Cytogenetic",
+		"code": 441
+	},
+	{
+		"name": "Dentistry",
+		"code": 200
+	},
+	{
+		"name": "Cardiac Perfusion",
+		"code": 442
+	},
+	{
+		"name": "Speech Therapy",
+		"code": 322
+	},
+	{
+		"name": "Plastic Surgery",
+		"code": 443
+	},
+	{
+		"name": "Speech, Hearing & language Therapy",
+		"code": 323
+	},
+	{
+		"name": "Anatomic and Clinical Pathology",
+		"code": 414
+	},
+	{
+		"name": "Occupational Therapy",
+		"code": 444
+	},
+	{
+		"name": "Preventive Medicine",
+		"code": 203
+	},
+	{
+		"name": "Intern",
+		"code": 535
+	},
+	{
+		"name": "Nephrology",
+		"code": 445
+	},
+	{
+		"name": "Clinical Pathology",
+		"code": 415
+	},
+	{
+		"name": "Renal Dialysis",
+		"code": 204
+	},
+	{
+		"name": "Central Sterile services",
+		"code": 325
+	},
+	{
+		"name": "Molecular Genetics",
+		"code": 472
+	},
+	{
+		"name": "Labs",
+		"code": 110
+	},
+	{
+		"name": "Medical Microbiology",
+		"code": 473
+	},
+	{
+		"name": "Gastroenterology",
+		"code": 10
+	},
+	{
+		"name": "Plastic Surgery",
+		"code": 11
+	},
+	{
+		"name": "General Practitioner",
+		"code": 232
+	},
+	{
+		"name": "Interventional Cardiology",
+		"code": 474
+	},
+	{
+		"name": "Pediatric Cardiology",
+		"code": 475
+	},
+	{
+		"name": "Oral & Maxillofacial Surgery",
+		"code": 113
+	},
+	{
+		"name": "Genetics",
+		"code": 234
+	},
+	{
+		"name": "Pulmonary Disease",
+		"code": 477
+	},
+	{
+		"name": "General Practitioner",
+		"code": 115
+	},
+	{
+		"name": "Psychiatry",
+		"code": 146
+	},
+	{
+		"name": "Haematology",
+		"code": 236
+	},
+	{
+		"name": "Interventional Radiology",
+		"code": 478
+	},
+	{
+		"name": "Health Care Management",
+		"code": 237
+	},
+	{
+		"name": "Microbiology",
+		"code": 117
+	},
+	{
+		"name": "Cardiology",
+		"code": 359
+	},
+	{
+		"name": "Neonatology",
+		"code": 118
+	},
+	{
+		"name": "Hepatology",
+		"code": 463
+	},
+	{
+		"name": "Histopathology",
+		"code": 101
+	},
+	{
+		"name": "Medical Oncology",
+		"code": 464
+	},
+	{
+		"name": "Medical Oncology",
+		"code": 465
+	},
+	{
+		"name": "Dental General Practitioner",
+		"code": 61
+	},
+	{
+		"name": "Thoracic Surgery",
+		"code": 345
+	},
+	{
+		"name": "Accident & Emergency",
+		"code": 62
+	},
+	{
+		"name": "Phlebotomy",
+		"code": 466
+	},
+	{
+		"name": "Anaesthesia",
+		"code": 63
+	},
+	{
+		"name": "Sports Medicine",
+		"code": 467
+	},
+	{
+		"name": "Occupational  Medicine",
+		"code": 380
+	},
+	{
+		"name": "Physical Medicine / Sport Medicine",
+		"code": 140
+	},
+	{
+		"name": "Assistant Nurse",
+		"code": 382
+	},
+	{
+		"name": "Medical  Lab Technology",
+		"code": 263
+	},
+	{
+		"name": "Unani",
+		"code": 34
+	},
+	{
+		"name": "Endocrinology",
+		"code": 9
+	},
+	{
+		"name": "Chiropractor",
+		"code": 38
+	},
+	{
+		"name": "Internal Med/ Cardiology",
+		"code": 452
+	},
+	{
+		"name": "Cardiology",
+		"code": 453
+	},
+	{
+		"name": "Diagnostic Radiology",
+		"code": 454
+	},
+	{
+		"name": "Emergency Medicine",
+		"code": 213
+	},
+	{
+		"name": "Pediatric",
+		"code": 455
+	},
+	{
+		"name": "Relaxation Massage Therapist",
+		"code": 335
+	},
+	{
+		"name": "Restorative Dentistry",
+		"code": 456
+	},
+	{
+		"name": "Paediatrics",
+		"code": 134
+	},
+	{
+		"name": "Ayurveda Massage Therapist",
+		"code": 336
+	},
+	{
+		"name": "Gastroenterology",
+		"code": 457
+	},
+	{
+		"name": "E.N.T",
+		"code": 458
+	},
+	{
+		"name": "Psychiatry",
+		"code": 459
+	},
+	{
+		"name": "Relaxation Massage Therapist",
+		"code": 339
+	},
+	{
+		"name": "Cardiac surgery",
+		"code": 482
+	},
+	{
+		"name": "Neurology",
+		"code": 120
+	},
+	{
+		"name": "Clinical Pathology",
+		"code": 362
+	},
+	{
+		"name": "Cardiac surgery",
+		"code": 483
+	},
+	{
+		"name": "Neurosurgery",
+		"code": 121
+	},
+	{
+		"name": "Child and Adolescent Psychiatry",
+		"code": 488
+	},
+	{
+		"name": "Internal Medicine/Interventional Cardiology",
+		"code": 5
+	},
+	{
+		"name": "Physiotherapy",
+		"code": 247
+	},
+	{
+		"name": "Molecular Pathology",
+		"code": 489
+	},
+	{
+		"name": "Surgical Oncology",
+		"code": 6
+	},
+	{
+		"name": "Oral Surgery",
+		"code": 127
+	},
+	{
+		"name": "Orthodontics",
+		"code": 128
+	},
+	{
+		"name": "Internal Med/ Nephrology",
+		"code": 8
+	},
+	{
+		"name": "Orthopaedic Surgery",
+		"code": 129
+	},
+	{
+		"name": "Cardiac Anesthesia",
+		"code": 490
+	},
+	{
+		"name": "Oral Surgery",
+		"code": 491
+	},
+	{
+		"name": "Emergency Medicine",
+		"code": 399
+	},
+	{
+		"name": "Phoniatrics",
+		"code": 371
+	},
+	{
+		"name": "Vascular Surgery",
+		"code": 492
+	},
+	{
+		"name": "Thoracic Surgeon",
+		"code": 158
+	},
+	{
+		"name": "Pediatric Gastroenterology",
+		"code": 493
+	},
+	{
+		"name": "Tropical Med.",
+		"code": 159
+	},
+	{
+		"name": "Clinical Toxicology",
+		"code": 374
+	},
+	{
+		"name": "Public Health Medicine",
+		"code": 495
+	},
+	{
+		"name": "Prosthodontics",
+		"code": 24
+	},
+	{
+		"name": "Peadiatrics Cardiology",
+		"code": 460
+	},
+	{
+		"name": "Ayurveda Massage Therapist",
+		"code": 340
+	},
+	{
+		"name": "Respiratory Medicine",
+		"code": 153
+	},
+	{
+		"name": "Dental Oral Histopothalogy",
+		"code": 461
+	},
+	{
+		"name": "Paediatric Dentistry",
+		"code": 462
+	},
+	{
+		"name": "Obs/Gyn",
+		"code": 395
+	},
+	{
+		"name": "Physical Medicine and Rehabilitation",
+		"code": 154
+	},
+	{
+		"name": "Assisted reproductive technology (ART)",
+		"code": 396
+	},
+	{
+		"name": "Endoscopy",
+		"code": 45
+	},
+	{
+		"name": "Histotechnology",
+		"code": 46
+	},
+	{
+		"name": "Ozone Therapy",
+		"code": 41
+	},
+	{
+		"name": "Optometry",
+		"code": 47
+	},
+	{
+		"name": "Diagnostic Radiography",
+		"code": 48
+	},
+	{
+		"name": "Audiology",
+		"code": 49
+	},
+	{
+		"name": "Rheumatology",
+		"code": 14
+	},
+	{
+		"name": "Psychiatrist",
+		"code": 16
+	},
+	{
+		"name": "Neurologist",
+		"code": 17
+	},
+	{
+		"name": "Dermatology",
+		"code": 18
+	},
+	{
+		"name": "Internal Medicine/Interventional Cardiology",
+		"code": 450
+	},
+	{
+		"name": "Urology",
+		"code": 330
+	},
+	{
+		"name": "General Surgery / Urology Surgery",
+		"code": 451
+	},
+	{
+		"name": "Beauty  therapy",
+		"code": 440
+	},
+	{
+		"name": "Dental Assistant",
+		"code": 30
+	},
+	{
+		"name": "Dental Helper",
+		"code": 31
+	},
+	{
+		"name": "Homeopathy",
+		"code": 32
+	},
+	{
+		"name": "Ayurveda",
+		"code": 33
+	},
+	{
+		"name": "E.C.G",
+		"code": 207
+	},
+	{
+		"name": "Dermatology",
+		"code": 449
+	},
+	{
+		"name": "E.E.G",
+		"code": 208
+	},
+	{
+		"name": "Echocardiography",
+		"code": 209
+	},
+	{
+		"name": "Food Management",
+		"code": 229
+	},
+	{
+		"name": "Internal Med /Endocrinology",
+		"code": 109
+	},
+	{
+		"name": "Cytology",
+		"code": 193
+	},
+	{
+		"name": "Dental Hygiene",
+		"code": 196
+	},
+	{
+		"name": "Dental Laboratory",
+		"code": 197
+	},
+	{
+		"name": "Dental  Radiology",
+		"code": 198
+	},
+	{
+		"name": "Family Medicine",
+		"code": 89
+	},
+	{
+		"name": "Gen. Medicine",
+		"code": 92
+	},
+	{
+		"name": "Orthopaedic Surgery",
+		"code": 515
+	},
+	{
+		"name": "General Practitioner",
+		"code": 93
+	},
+	{
+		"name": "Pediatric Endocrinology",
+		"code": 517
+	},
+	{
+		"name": "General Surgery",
+		"code": 95
+	},
+	{
+		"name": "Rheumatology",
+		"code": 518
+	},
+	{
+		"name": "Neonatology",
+		"code": 432
+	},
+	{
+		"name": "Critical Care Medicine",
+		"code": 433
+	},
+	{
+		"name": "Oncology",
+		"code": 434
+	},
+	{
+		"name": "Respiratory Therapy",
+		"code": 314
+	},
+	{
+		"name": "Family Medicine",
+		"code": 435
+	},
+	{
+		"name": "Clinical Biochemistry",
+		"code": 416
+	},
+	{
+		"name": "Medical Imaging",
+		"code": 436
+	},
+	{
+		"name": "Anatomic Pathology",
+		"code": 437
+	},
+	{
+		"name": "Peadiatrics / Neonatology",
+		"code": 540
+	},
+	{
+		"name": "Dental General Practitioner",
+		"code": 541
+	},
+	{
+		"name": "Laser hair removal Technician",
+		"code": 421
+	},
+	{
+		"name": "Anaesthesia",
+		"code": 542
+	},
+	{
+		"name": "Podiatry",
+		"code": 301
+	},
+	{
+		"name": "Pediatric",
+		"code": 446
+	},
+	{
+		"name": "Dietetics",
+		"code": 205
+	},
+	{
+		"name": "Histocompatibility and Immunogenetic",
+		"code": 447
+	},
+	{
+		"name": "Orthodontics",
+		"code": 448
+	},
+	{
+		"name": "Audiological Medicine",
+		"code": 427
+	},
+	{
+		"name": "Nephrology",
+		"code": 428
+	},
+	{
+		"name": "Radiation therapy",
+		"code": 308
+	},
+	{
+		"name": "Medical Casting",
+		"code": 268
+	},
+	{
+		"name": "Registered Nurse",
+		"code": 389
+	},
+	{
+		"name": "Public Health",
+		"code": 148
+	},
+	{
+		"name": "Medical Diagnostic Imaging",
+		"code": 269
+	},
+	{
+		"name": "Pulmonology",
+		"code": 149
+	},
+	{
+		"name": "Immunology",
+		"code": 105
+	},
+	{
+		"name": "Nuclear Medicine",
+		"code": 347
+	},
+	{
+		"name": "Reproductive Medicine and Infertility",
+		"code": 500
+	},
+	{
+		"name": "Implantologist",
+		"code": 106
+	},
+	{
+		"name": "Food & Dietician",
+		"code": 227
+	},
+	{
+		"name": "Cupping (Hijama) Therapy",
+		"code": 348
+	},
+	{
+		"name": "Infectious Diseases",
+		"code": 107
+	},
+	{
+		"name": "Food Hygiene & Saftey",
+		"code": 228
+	},
+	{
+		"name": "Dental Technology",
+		"code": 199
+	},
+	{
+		"name": "Pediatric Infectious Disease",
+		"code": 510
+	},
+	{
+		"name": "Aviation Medicine",
+		"code": 512
+	},
+	{
+		"name": "Food and Dietetics",
+		"code": 90
+	},
+	{
+		"name": "Anaesthesia",
+		"code": 514
+	},
+	{
+		"name": "Cardiology",
+		"code": 183
+	},
+	{
+		"name": "Chemistry",
+		"code": 185
+	},
+	{
+		"name": "Clinical Chemistry",
+		"code": 186
+	},
+	{
+		"name": "Electro-neurodiagnostics",
+		"code": 187
+	},
+	{
+		"name": "Conservative Dentistry",
+		"code": 78
+	},
+	{
+		"name": "Dermatology",
+		"code": 79
+	},
+	{
+		"name": "Dietetics",
+		"code": 82
+	},
+	{
+		"name": "Otolaryngology",
+		"code": 83
+	},
+	{
+		"name": "Obs/Gyn",
+		"code": 506
+	},
+	{
+		"name": "E.N.T Surgery",
+		"code": 84
+	},
+	{
+		"name": "Hematology and Transfusion Medicine",
+		"code": 507
+	},
+	{
+		"name": "Emergency Medicine",
+		"code": 85
+	},
+	{
+		"name": "Neuroradiology",
+		"code": 508
+	},
+	{
+		"name": "Restorative Dentistry",
+		"code": 509
+	},
+	{
+		"name": "Immunology",
+		"code": 255
+	},
+	{
+		"name": "Pathology / Histology & Cytology",
+		"code": 135
+	},
+	{
+		"name": "Oral Medicine and Radiology",
+		"code": 377
+	},
+	{
+		"name": "Community Medicine",
+		"code": 498
+	},
+	{
+		"name": "Paediatric Dentistry",
+		"code": 136
+	},
+	{
+		"name": "Reproductive Medicine and Infertility",
+		"code": 499
+	},
+	{
+		"name": "Periodontics",
+		"code": 137
+	},
+	{
+		"name": "Medical Microbiology",
+		"code": 484
+	},
+	{
+		"name": "Dental Surgery",
+		"code": 25
+	},
+	{
+		"name": "Dental Oral Medicine",
+		"code": 28
+	},
+	{
+		"name": "Endodontics",
+		"code": 29
+	},
+	{
+		"name": "Cupping (Hijama) Therapy",
+		"code": 42
+	},
+	{
+		"name": "Biochemistry",
+		"code": 43
+	},
+	{
+		"name": "Embryology",
+		"code": 44
+	},
+	{
+		"name": "Clinical Genetics",
+		"code": 519
+	},
+	{
+		"name": "Haematology",
+		"code": 97
+	},
+	{
+		"name": "Cardiac Electrophysiology",
+		"code": 537
+	},
+	{
+		"name": "Dental Clinical support",
+		"code": 417
+	},
+	{
+		"name": "Radiation Oncology",
+		"code": 418
+	},
+	{
+		"name": "Gastrointestinal Surgery",
+		"code": 539
+	},
+	{
+		"name": "Neurology",
+		"code": 419
+	},
+	{
+		"name": "ICU",
+		"code": 422
+	},
+	{
+		"name": "Prosthodontics",
+		"code": 302
+	},
+	{
+		"name": "Orthopedic Surgery",
+		"code": 424
+	},
+	{
+		"name": "Cardio-vascular Surgery",
+		"code": 425
+	},
+	{
+		"name": "Public Health",
+		"code": 305
+	},
+	{
+		"name": "Pediatric Emergency Medicine",
+		"code": 426
+	},
+	{
+		"name": "Anatomic Pathology",
+		"code": 429
+	},
+	{
+		"name": "Radiography",
+		"code": 309
+	},
+	{
+		"name": "MASSAGE THERAPY",
+		"code": 501
+	},
+	{
+		"name": "Dermatology & Venereology",
+		"code": 80
+	},
+	{
+		"name": "Pediatric Hepatology",
+		"code": 503
+	},
+	{
+		"name": "Mental Health Nurse",
+		"code": 546
+	},
+	{
+		"name": "Epidemiology",
+		"code": 550
+	},
+	{
+		"name": "Neonatal Nurse",
+		"code": 548
+	},
+	{
+		"name": "Pediatric Oncology",
+		"code": 592
+	},
+	{
+		"name": "Epidemiology",
+		"code": 222
+	},
+	{
+		"name": "Health Info. Manag.System",
+		"code": 241
+	},
+	{
+		"name": "Gynecological Oncology",
+		"code": 588
+	},
+	{
+		"name": "E.N.T",
+		"code": 480
+	},
+	{
+		"name": "Gastrointestinal Surgery",
+		"code": 538
+	},
+	{
+		"name": "Pediatric Nurse",
+		"code": 545
+	},
+	{
+		"name": "Pharmacist",
+		"code": 235
+	},
+	{
+		"name": "Pediatric Immunology & Allergy",
+		"code": 528
+	},
+	{
+		"name": "IVF / Infertility ",
+		"code": 357
+	},
+	{
+		"name": "Pharmacy",
+		"code": 1381
+	},
+	{
+		"name": "Hair transplant",
+		"code": 543
+	},
+	{
+		"name": "Pharmacist Assistant",
+		"code": 1418
+	},
+	{
+		"name": "Hematopathology",
+		"code": 469
+	},
+	{
+		"name": "Anatomic and Clinical Pathology",
+		"code": 476
+	},
+	{
+		"name": "ICU",
+		"code": 104
+	},
+	{
+		"name": "Family Medicine",
+		"code": 586
+	},
+	{
+		"name": "Preventive Medicine",
+		"code": 587
+	},
+	{
+		"name": "Preventive Medicine",
+		"code": 598
+	},
+	{
+		"name": "Pediatric Nephrology",
+		"code": 600
+	},
+	{
+		"name": "Dermatopathology",
+		"code": 601
+	},
+	{
+		"name": "Dental Radiology",
+		"code": 603
+	},
+	{
+		"name": "Psychiatry",
+		"code": 589
+	},
+	{
+		"name": "Diagnostic Radiology",
+		"code": 597
+	},
+	{
+		"name": "Internal Medicine",
+		"code": 599
+	},
+	{
+		"name": "Biochemistry",
+		"code": 66
+	},
+	{
+		"name": "Toxicology technologist",
+		"code": 1268
+	},
+	{
+		"name": "Pediatric Cardiac Surgery",
+		"code": 606
+	},
+	{
+		"name": "Pediatric Pulmonology",
+		"code": 379
+	},
+	{
+		"name": "Hospice and Palliative Medicine",
+		"code": 618
+	},
+	{
+		"name": "Vitreo Retina Surgery",
+		"code": 612
+	},
+	{
+		"name": "Physiotherapy",
+		"code": 238
+	},
+	{
+		"name": "Ophthalmology",
+		"code": 700
+	},
+	{
+		"name": "Endodontics",
+		"code": 596
+	},
+	{
+		"name": "Nurse Practitioner",
+		"code": 615
+	},
+	{
+		"name": "Trauma and Orthopedic Surgery",
+		"code": 629
+	},
+	{
+		"name": "Assistant Midwife",
+		"code": 634
+	},
+	{
+		"name": "Medical Ophthalmology",
+		"code": 622
+	},
+	{
+		"name": "Anesthesiology Critical Care Medicine",
+		"code": 643
+	},
+	{
+		"name": "Surgery of the Hand",
+		"code": 594
+	},
+	{
+		"name": "Pediatric Cardiology",
+		"code": 497
+	},
+	{
+		"name": "Emergency Medicine",
+		"code": 652
+	},
+	{
+		"name": "Medical Ophthalmology",
+		"code": 621
+	},
+	{
+		"name": "Laser Hair Reduction Therapy",
+		"code": 638
+	},
+	{
+		"name": "Geriatric Medicine",
+		"code": 527
+	},
+	{
+		"name": "Pediatric Endocrinology",
+		"code": 516
+	},
+	{
+		"name": "Pediatric Pulmonology",
+		"code": 486
+	},
+	{
+		"name": "Orthopedic Surgery of The Spine",
+		"code": 620
+	},
+	{
+		"name": "General Dentist",
+		"code": 1301
+	},
+	{
+		"name": "Audio Vestibular Medicine",
+		"code": 560
+	},
+	{
+		"name": "School Nurse",
+		"code": 616
+	},
+	{
+		"name": "Allied Health Technology",
+		"code": 635
+	},
+	{
+		"name": "Critical Care Nurse",
+		"code": 547
+	},
+	{
+		"name": "Medical Microbiology",
+		"code": 1347
+	},
+	{
+		"name": "Cast Technology",
+		"code": 627
+	},
+	{
+		"name": "Gastroenterology & Hepatology",
+		"code": 632
+	},
+	{
+		"name": "Sexual & Reproductive Health.",
+		"code": 656
+	},
+	{
+		"name": "Surgical Oncology",
+		"code": 655
+	},
+	{
+		"name": "Healthcare Assistant",
+		"code": 658
+	},
+	{
+		"name": "Ambulance",
+		"code": 170
+	},
+	{
+		"name": "General Dentist",
+		"code": 666
+	},
+	{
+		"name": "Clinical Immunology",
+		"code": 663
+	},
+	{
+		"name": "Aesthetic/Beauty Therapy",
+		"code": 1272
+	}
+]
