@@ -1,3 +1,10 @@
+// white space remover 
+function cleanId(value) {
+  if (!value) return "";
+  return value.trim().replace(/\s+/g, ""); // remove ALL spaces
+}
+
+
 // Define EHS upload headers
 const EHS_HEADERS = [
   "Clinician Unique ID","English Name","Arabic name","License","Active","License Start",
@@ -161,3 +168,77 @@ document.getElementById("downloadBtn").addEventListener("click", () => {
   XLSX.utils.book_append_sheet(wb, ws, "EHS Upload");
   XLSX.writeFile(wb, "EHS_Upload.xlsx");
 });
+
+/* for specialty dropdown*/
+
+// Sample list (edit as needed)
+let SPECIALTY_LIST = [];
+
+fetch("./specialty.json")
+  .then(res => res.json())
+  .then(data => {
+    SPECIALTY_LIST = data;
+
+    // attach autocomplete AFTER JSON is loaded
+    document.querySelectorAll(".specialty").forEach(input =>
+      attachSpecialtyAutocomplete(input)
+    );
+  });
+
+// attach autocomplete to all specialty inputs
+function attachSpecialtyAutocomplete(input) {
+  input.addEventListener("input", function () {
+    let val = this.value;
+    closeAllLists();
+
+    if (!val) return;
+
+    const listDiv = document.createElement("div");
+    listDiv.setAttribute("class", "autocomplete-items");
+    this.parentNode.appendChild(listDiv);
+
+    SPECIALTY_LIST.forEach(item => {
+      if (item.name.toLowerCase().includes(val.toLowerCase())) {
+        const option = document.createElement("div");
+        option.setAttribute("class", "autocomplete-item");
+        option.innerHTML = `${item.name} (${item.code})`;
+        option.addEventListener("click", () => {
+          input.value = item.code; // load integer code
+          closeAllLists();
+        });
+        listDiv.appendChild(option);
+      }
+    });
+  });
+
+  input.addEventListener("blur", function () {
+    setTimeout(closeAllLists, 200);
+  });
+}
+
+function closeAllLists() {
+  document.querySelectorAll(".autocomplete-items").forEach(el => el.remove());
+}
+
+// Attach autocomplete on existing row document.querySelectorAll(".specialty").forEach(input =>  attachSpecialtyAutocomplete(input));
+
+// Attach autocomplete on new row
+document.getElementById("addRowBtn").addEventListener("click", () => {
+  const rows = document.querySelectorAll("#dataBody tr");
+  const lastRow = rows[rows.length - 1];
+  attachSpecialtyAutocomplete(lastRow.querySelector(".specialty"));
+});
+
+/* -------------------------------------------
+   CLEAR PREVIEW BUTTON
+--------------------------------------------*/
+
+document.getElementById("clearPreviewBtn").addEventListener("click", () => {
+  document.getElementById("ehsBody").innerHTML = "";
+  alert("Preview table cleared.");
+});
+
+
+    
+
+
