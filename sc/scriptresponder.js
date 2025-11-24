@@ -1,3 +1,7 @@
+function to3(num) {
+    return Number(parseFloat(num || 0).toFixed(3));
+}
+
  // --- Global variables to store state between API calls ---
       let savedEntities = []; // Stores entities from the GetNew call
       let parsedViewData = {}; // Stores cleaned-up data from the View call for use in POST requests
@@ -17,6 +21,7 @@
         authEndpointSelect.disabled = mode === "remit";
         remitEndpointSelect.disabled = mode === "auth";
         toggleInputs(); // Update conditional inputs when mode changes
+        updateResponseTypeOptions();   // response type selector
       }
 
       /**
@@ -32,6 +37,7 @@
 
         const showIdInput =
           endpoint.includes("View") || endpoint.includes("SetDownloaded");
+
         const showDisposition =
           endpoint.includes("PostAuthorization") ||
           endpoint.includes("PostRemittance");
@@ -48,6 +54,8 @@
 
         idInputContainer.classList.toggle("hidden", !showIdInput);
         dispositionContainer.classList.toggle("hidden", !showDisposition);
+
+        updateResponseTypeOptions();
       }
 
       function generateRemitBody() {
@@ -202,7 +210,8 @@
           "Generated PostAuthorization Body:\n" + JSON.stringify(body, null, 2);
       }
 
-      function buildPostRemittanceBody(viewData, disposition) {
+        // old buildPostRemittanceBody
+ /*      function buildPostRemittanceBody(viewData, disposition) {
         const transactionDate = moment().format("DD/MM/YYYY HH:mm");
         const idPayerBase = "RA_" + moment().format("DDMMYYYYHHmmss");
 
@@ -252,8 +261,155 @@
           },
         };
       }
+ */
+     
 
-      async function sendRequest() {
+//response type update for both RA and PA
+function updateResponseTypeOptions(){
+  const mode = document.querySelector('input[name="mode"]:checked').value;
+  const responseTypeSelect = document.getElementById("responsetype");
+  
+  //enable all option first
+  Array.from(responseTypeSelect.options).forEach(opt => (opt.hidden = false));
+    
+  if (mode==="remit"){
+    //hide PRCE when in remittance mode
+    const prceOption = Array.from(responseTypeSelect.options).find(o => o.value==="PRCE");
+
+    if (prceOption) prceOption.hidden = true;
+      // in response type PRCE is select this will switch the type to Full payment
+    if(responseTypeSelect.value === "PRCE"){
+      responseTypeSelect.value = "Full Payment"
+    }
+  }
+}
+
+// updated buildPostRemittanceBody with response type selection
+
+function buildPostRemittanceBody(viewData, disposition) {
+    const transactionDate = moment().format("DD/MM/YYYY HH:mm");
+    const idPayerBase = "RA_" + moment().format("DDMMYYYYHHmmss");
+    const responseType = document.getElementById("responsetype").value;
+
+    const claims = (viewData.MultipleClaim || []).map((claim, claimIndex) => {
+        const activities = claim.Activities || [];
+
+        let processedActivities = [];
+
+        // -----------------------------
+        // FULL PAYMENT LOGIC
+        // -----------------------------
+        if (responseType === "Full Payment") {
+            processedActivities = activities.map(a => {
+                const gross = (a.Net || 0) + (a.PatientShare || 0);
+                return {
+                    ...a,
+                    Gross: to3(gross),
+                    Net:to3(a.Net),
+                    PaymentAmount: to3(a.Net),
+                    DenialCode: "",
+                    Comment: "Fully paid",
+                     List: to3(gross)
+                };
+            });
+        }
+
+        // -----------------------------
+        // FULL REJECTION LOGIC
+        // -----------------------------
+        else if (responseType === "Full Rejection") {
+            processedActivities = activities.map(a => {
+                const gross = (a.Net || 0) + (a.PatientShare || 0);
+                return {
+                    ...a,
+                          Gross: to3(gross),
+                    PaymentAmount: 0,
+                    Net: to3(a.Net),
+                    DenialCode: "AUTH-001",
+                    Comment: "Rejected",
+                      List: to3(gross)
+                };
+            });
+        }
+
+        // -----------------------------
+        // PARTIAL PAYMENT LOGIC
+        // -----------------------------
+        else if (responseType === "Partial Payment") {
+            // If only 1 activity → partial not allowed
+            if (activities.length === 1) {
+                alert("Partial payment is NOT allowed when claim has only 1 activity.");
+            }
+
+            processedActivities = activities.map((a, idx) => {
+                const gross = (a.Net || 0) + (a.PatientShare || 0);
+
+                // FIRST ACTIVITY = PAID
+                if (idx === 0) {
+                    return {
+                        ...a,
+                               Gross: to3(gross),
+                        PaymentAmount: to3(a.Net),
+                        DenialCode: "",
+                        Comment: "Partially paid",
+                             List: to3(gross)
+                    };
+                }
+
+                // OTHER ACTIVITIES = REJECTED
+                return {
+                    ...a,
+                          Gross: to3(gross),
+                    Net: to3(a.Net),
+                    PaymentAmount: 0,
+                    DenialCode: "AUTH-001",
+                    Comment: "Rejected in partial",
+                         List: to3(gross)
+                };
+            });
+        }
+
+        // -----------------------------
+        // CLAIM-LEVEL LOGIC
+        // -----------------------------
+        let claimDenial = "";
+        const totalNet = activities.reduce((t, a) => t + (a.Net || 0), 0);
+        const totalPaid = processedActivities.reduce((t, a) => t + (a.PaymentAmount || 0), 0);
+
+        if (totalPaid < totalNet) {
+            claimDenial = "AUTH-001"; // remittance-level denial rule
+        }
+
+        return {
+            ID: claim.ClaimID,
+            IDPayer: `${idPayerBase}_${claimIndex}`,
+            ProviderID: claim.ProviderID,
+            PaymentReference: `${idPayerBase}_${claimIndex}`,
+            DateSettlement: transactionDate,
+            DenialCode: claimDenial,
+            Encounter: { FacilityID: claim.FacilityID },
+            Activity: processedActivities
+        };
+    });
+
+    return {
+        Remittance: {
+            Header: {
+                SenderID: viewData.RASender,
+                ReceiverID: viewData.RAReceiver,
+                TransactionDate: transactionDate,
+                RecordCount: claims.length,
+                DispositionFlag: disposition,
+                PayerID: viewData.PayerID
+            },
+            Claim: claims
+        }
+    };
+}
+
+
+
+ async function sendRequest() {
         const baseUrl = document.getElementById("base-url").value;
         const mode = document.querySelector('input[name="mode"]:checked').value;
         let endpoint =
