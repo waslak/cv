@@ -122,7 +122,7 @@ document.getElementById("generateBtn").addEventListener("click", () => {
       "Clinician Unique ID": clinicianId,
       "English Name": englishName,
       "Arabic name": arabicName || "",
-      "License": "",
+      "License": clinicianId,
       "Active": active,
       "License Start": formatDate(dateStart),
       "Clinician License End": licenseEnd,
@@ -174,7 +174,7 @@ document.getElementById("downloadBtn").addEventListener("click", () => {
 // Sample list (edit as needed)
 let SPECIALTY_LIST = [];
 
-fetch("./specialty.json")
+fetch("./sc/specialty.json")
   .then(res => res.json())
   .then(data => {
     SPECIALTY_LIST = data;
