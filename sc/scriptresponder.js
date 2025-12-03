@@ -536,7 +536,7 @@ async function autoCycle() {
 
     }
     else {
-       log("[5] Prior request not set as downloaded for disposition TEST...\n    To change dispostion select PostAuthorization and change the flag and ran the service again");
+       log("[5] Prior request not set as downloaded for disposition TEST...\n    To change disposition select PostAuthorization and change the flag and ran the service again");
          }
     }
 
@@ -604,7 +604,7 @@ async function autoCycle() {
     log("[9] Marking Claim as Downloaded...");
     await autoCall("/api/Claim/SetDownloaded?id=" + remitId, "POST");
     } else {
-    log("[9] Claim not mark as Downloaded for Disposition TEST...\n    To change dispostion select PostRemittance and change the flag and ran the service again...");
+    log("[9] Claim not mark as Downloaded for Disposition TEST...\n    To change disposition select PostRemittance and change the flag and ran the service again...");
     }
     // -------------------------------------------
     // DONE
@@ -621,5 +621,14 @@ async function autoCycle() {
 // ===========================
 document.getElementById("auto-cycle-btn").onclick = autoCycle;
 
+
+//==========================
+//Clear response history
+//==========================
+
+document.getElementById("clearPreviewBtn").addEventListener("click", () => {
+  document.getElementById("response").innerHTML = "";
+  alert("Response history will be cleared.");
+});
 
 
