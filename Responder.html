@@ -1,131 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
- <head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Authorization & Remittance Web App</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/moment/min/moment.min.js"></script>
-    <link rel="stylesheet" href="./sc/styleresponder.css" />
+     <link rel="stylesheet" href="/sc/styleresponder.css" />
   </head>
- <body>
+
+  <body>
     <div class="container">
       <h2>Authorization & Remittance WebApp</h2>
 
-      <div class="form-group">
-        <label for="base-url">Select Base URL:</label>
-        <select id="base-url">
-          <option value="https://tmbapi.riayati.ae:8083">
-            Riayati Production
-          </option>
-          <option value="https://o-tmbapi.riayati.ae:8083" selected>
-            Riayati Onboarding
-          </option>
+  <!-- BASE URL -->
+  <div class="form-group">
+    <label for="base-url">Select Base URL:</label>
+    <select id="base-url">
+      <option value="https://tmbapi.riayati.ae:8083">Riayati Production</option>
+      <option value="https://o-tmbapi.riayati.ae:8083" selected>Riayati Onboarding</option>
+    </select>
+  </div>
 
-            Person register
-          </option>
-        </select>
-      </div>
 
-      <fieldset>
-        <legend>Select Mode</legend>
-        <div class="radio-group">
-          <label
-            ><input
-              type="radio"
-              name="mode"
-              value="auth"
-              checked
-              onclick="toggleMode()"
-            />
-            Authorization</label
-          >
-          <label
-            ><input
-              type="radio"
-              name="mode"
-              value="remit"
-              onclick="toggleMode()"
-            />
-            Remittance</label > 
+  <!-- MODE -->
+  <fieldset>
+    <legend>Select Mode</legend>
+    <div class="radio-group">
+      <label><input type="radio" name="mode" value="auth" checked onclick="toggleMode()"> Authorization</label>
+      <label><input type="radio" name="mode" value="remit" onclick="toggleMode()"> Remittance</label>
+    </div>
+  </fieldset>
+  
 
-        </div>
-      </fieldset>
+    <!-- AUTHORIZATION ENDPOINTS -->
+  <div class="form-group">
+    <label for="api-endpoint">Authorization API Endpoint:</label>
+    <select id="api-endpoint" onchange="toggleInputs()">
+      <option value="/api/Authorization/GetNew">Payer_GetNew (GET)</option>
+      <option value="/api/Authorization/View?id=">Payer_View Transaction (GET)</option>
+      <option value="/api/Authorization/PostAuthorization">PostAuthorization (POST)</option>
+      <option value="/api/Authorization/SetDownloaded?id=">Payer_SetTransactionAsDownloaded (POST)</option>
+    </select>
+  </div>
 
-      <div class="form-group">
-        <label for="api-endpoint">Authorization API Endpoint:</label>
-        <select id="api-endpoint" onchange="toggleInputs()">
-          <option value="/api/Authorization/GetNew">Payer_GetNew (GET)</option>
-          <option value="/api/Authorization/View?id=">
-            Payer_View Transaction (GET)
-          </option>
-          <option value="/api/Authorization/PostAuthorization">
-            PostAuthorization (POST)
-          </option>
-          <option value="/api/Authorization/SetDownloaded?id=">
-            Payer_SetTransactionAsDownloaded (POST)
-          </option>
-        </select>
-      </div>
+ <!-- REMITTANCE ENDPOINTS -->
+  <div class="form-group">
+    <label for="api-endpoint-remit">Remittance API Endpoint:</label>
+    <select id="api-endpoint-remit" onchange="toggleInputs()" disabled>
+      <option value="/api/Claim/GetNew">Payer_GetNew (GET)</option>
+      <option value="/api/Claim/View?id=">Payer_View Transaction (GET)</option>
+      <option value="/api/Claim/PostRemittance">PostRemittance (POST)</option>
+      <option value="/api/Claim/SetDownloaded?id=">Payer_SetTransactionAsDownloaded (POST)</option>
+    </select>
+  </div>
 
-      <div class="form-group">
-        <label for="api-endpoint-remit">Remittance API Endpoint:</label>
-        <select id="api-endpoint-remit" onchange="toggleInputs()" disabled>
-          <option value="/api/Claim/GetNew">Payer_GetNew (GET)</option>
-          <option value="/api/Claim/View?id=">
-            Payer_View Transaction (GET)
-          </option>
-          <option value="/api/Claim/PostRemittance">
-            PostRemittance (POST)
-          </option>
-          <option value="/api/Claim/SetDownloaded?id=">
-            Payer_SetTransactionAsDownloaded (POST)
-          </option>
-        </select>
-      </div>
-
+    <!-- TRANSACTION ID INPUT -->
       <div id="id-input-container" class="form-group hidden">
         <label for="manual-id">Enter Transaction ID</label>
         <input type="text" id="manual-id" placeholder="Paste ID here" />
       </div>
 
-      <div id="disposition-container" class="form-group hidden">
-        <label for="disposition">DispositionFlag:</label>
-        <select id="disposition">
-          <option value="TEST" selected>TEST</option>
-          <option value="PRODUCTION">PRODUCTION</option>
-        </select>
-       <select id="responsetype"> <label for="responseType">Response Type:</label>
-    <option value="Full Payment" selected>Full Payment</option>  
-    <option value="Partial Payment">Partial Payment</option>
-    <option value="Full Rejection">Full Rejection</option>
-    <option value="PRCE">Approved with PRCE-015</option>
-</select>
-      </div>
+        <!-- DISPOSITION + RESPONSE TYPE -->
+  <div id="disposition-container" class="form-group hidden">
+    <label for="disposition">DispositionFlag:</label>
+    <select id="disposition">
+      <option value="TEST" selected>TEST</option>
+      <option value="PRODUCTION">PRODUCTION</option>
+    </select>
 
+    <label for="responsetype">Response Type:</label>
+    <select id="responsetype">
+      <option value="Full Payment">Full Payment</option>
+      <option value="Partial Payment">Partial Payment</option>
+      <option value="Full Rejection">Full Rejection</option>
+      <option value="PRCE">Approved with PRCE-015</option>
+    </select>
+  </div>
+
+  
       <div class="button-container">
-        <button onclick="sendRequest()" class="btn-primary">
-          Send Request
-        </button>
-        <button
-          id="generate-auth-btn"
-          onclick="generateAuthBody()"
-          class="btn-secondary hidden"
-        >
-          Generate PostAuthorization Body
-        </button>
-        <button
-          id="generate-remit-btn"
-          onclick="generateRemitBody()"
-          class="btn-secondary hidden"
-        >
-          Generate PostRemittance Body
-        </button>
-
-        <a href="./index.html"
-          ><button type="button" class="btn-secondary">Main Page</button></a
-        >
-      </div>
+    <button id="auto-cycle-btn" class="btn-primary">Auto Transaction Cycle</button>
+    <button onclick="sendRequest()" class="btn-primary">Send Request</button>
+    <button id="generate-auth-btn" onclick="generateAuthBody()" class="btn-secondary hidden">      Generate PostAuthorization Body    </button>
+    <button id="generate-remit-btn" onclick="generateRemitBody()" class="btn-secondary hidden">      Generate PostRemittance Body    </button>
+    <a href="../main.html"><button type="button" class="btn-secondary">Main Page</button></a >
+    </div>
 
       <h3>Response:</h3>
       <div id="response" class="response-box">Waiting for response...</div>
@@ -139,14 +99,8 @@
       <h3>Parsed Data from Post:</h3>
       <div id="posted-data" class="response-box">No post data yet.</div>
     </div>
-   <script src="./sc/scriptresponder.js"></script>
- 
+
+    <script src="./sc/scriptresponder.js"></script>
+
   </body>
 </html>
-
-
-
-
-
-
-
