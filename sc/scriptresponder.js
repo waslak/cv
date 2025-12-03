@@ -150,7 +150,7 @@ function to3(num) {
                 }
                 return {
                     ...a,
-                    PaymentAmount: a.Net,
+                    PaymentAmount: to3(a.Net),
                     DenialCode: "",
                     Comments: "Partially approved"
                 };
@@ -164,7 +164,7 @@ function to3(num) {
 
                 return {
                     ...a,
-                    PaymentAmount: pay,
+                    PaymentAmount: to3(pay),
                     DenialCode: pay < a.Net ? "PRCE-015" : "",
                     Comments: "PRCE rule applied"
                 };
