@@ -53,3 +53,9 @@ button:hover {
     .btn-secondary:hover { background-color: #5a6268; }
     .response-box { white-space: pre-wrap; background: #e9ecef; padding: 15px; border-radius: 8px; margin-top: 10px; max-height: 400px; overflow-y: auto; font-family: "Courier New", Courier, monospace; font-size: 14px; }
     .hidden { display: none; }
+
+    .log-info     { color: #007bff; font-weight: 600; }
+.log-success  { color: #28a745; font-weight: 600; }
+.log-error    { color: #dc3545; font-weight: 600; }
+.log-warning  { color: #ff8800; font-weight: 600; }
+.log-time     { color: #6c757d; font-size: 12px; margin-right: 4px; }
