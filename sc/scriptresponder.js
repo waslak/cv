@@ -211,6 +211,8 @@ function buildPostAuthorizationBody(viewData, disposition) {
   const transactionDate = moment().format("DD/MM/YYYY HH:mm");
   const endDate = moment().add(45, "minutes").format("DD/MM/YYYY HH:mm");
   const idPayer = "Aq_" + moment().format("DDMMYYYYHHmmss");
+  window.lastAuthIDPayer = idPayer;
+ 
 
   const responseType = document.getElementById("responsetype").value;
   const activities = viewData.activities || [];
@@ -272,6 +274,7 @@ function buildPostAuthorizationBody(viewData, disposition) {
   }
 
   const result = responseType === "Full Rejection" ? "No" : "Yes";
+  window.lastAuthTransactionID = viewData.TransactionID;
 
   return {
     PriorAuthorization: {
@@ -394,6 +397,8 @@ function buildPostRemittanceBody(viewData, disposition) {
       Activity: processedActivities
     };
   });
+  window.lastRemitIDPayers = claims.map(c => c.IDPayer);
+  window.lastRemitTransactionIDs = (viewData.MultipleClaim || []).map(c => c.ClaimID);
 
   return {
     Remittance: {
@@ -430,17 +435,39 @@ function generateRemitBody() {
     JSON.stringify(body, null, 2);
 }
 
+
+
+
 /****************************************************
  Auto responder 
  ****************************************************/
 
- function log(msg) {
+function log(message) {
     const box = document.getElementById("response");
-    box.innerText += "\n" + msg;
-}
 
+    // Generate timestamp
+    const ts = new Date().toISOString().replace("T", " ").split(".")[0];
+
+    // Decide color class
+    let cssClass = "log-info";
+
+    if (message.includes("✔") || message.includes("complete") || message.includes("COMPLETE")) {
+        cssClass = "log-success";
+    } 
+    else if (message.includes("❌") || message.includes("ERROR") || message.includes("failed")) {
+        cssClass = "log-error";
+    }
+    else if (message.includes("Skipping") || message.includes("Warning")) {
+        cssClass = "log-warning";
+    }
+
+    box.innerHTML += 
+        `<div><span class="log-time">${ts}</span> <span class="${cssClass}">${message}</span></div>`;
+
+    box.scrollTop = box.scrollHeight;  // Auto-scroll
+}
 // ===========================
-// GENERIC CALL
+// GENERIC CALL for Auto cycle
 // ===========================
 async function autoCall(endpoint, method = "GET", body = null) {
     try {
@@ -463,172 +490,197 @@ async function autoCall(endpoint, method = "GET", body = null) {
     }
 }
 
-// ===========================
-// MAIN AUTO CYCLE
-// ===========================
+
+/****************************************************
+ * AUTO CYCLE — AUTHORIZATION ONLY
+ ****************************************************/
+async function autoCycleAuthorization() {
+  const disposition = document.getElementById("disposition").value;
+  const responseType = document.getElementById("responsetype").value;
+
+  log("========== AUTHORIZATION AUTO CYCLE ==========");
+  log("Response Type: " + responseType);
+
+  /*************** 1. GET NEW ***************/
+  log("[1] Fetching Authorization GetNew...");
+  const authNew = await autoCall("/api/Authorization/GetNew");
+
+  if (!authNew?.Entities?.length) {
+    log("❌ No authorization entity returned.");
+    return;
+  }
+
+  const authId = authNew.Entities[0].ID;
+  log("✔ Authorization ID: " + authId);
+
+  /*************** 2. VIEW ***************/
+  log("[2] Viewing Authorization...");
+  const authView = await autoCall("/api/Authorization/View?id=" + authId);
+
+  if (!authView?.Entity) {
+    log("❌ Authorization view failed.");
+    return;
+  }
+
+    parsedViewData = {
+    PAsenderID: authView.Entity.Header?.ReceiverID,
+    PAreceiverID: authView.Entity.Header?.SenderID,
+    PayerID: authView.Entity.Header?.PayerID,
+    TransactionID: authView.Entity.Authorization?.ID,
+    activities: authView.Entity.Authorization?.Activity || []
+  };
+
+
+  log("✔ Parsed Authorization");
+
+
+  /*************** 3. BUILD JSON ***************/
+
+
+ const authBody = buildPostAuthorizationBody(parsedViewData, disposition);
+
+  document.getElementById("response").innerText =
+    "Authorization JSON to Upload:\n" + JSON.stringify(authBody, null, 2);
+
+  const ok = confirm("Upload Authorization JSON?");
+  if (!ok) {
+    log("❌ User cancelled upload.");
+    return;
+  }
+
+   /*************** 4. POST AUTHORIZATION ***************/
+  log("[3] Uploading Authorization Response...");
+  log("Authorization IDPayer: " + window.lastAuthIDPayer);
+  log("Authorization  ID: " + window.lastAuthTransactionID);
+
+  await autoCall("/api/Authorization/PostAuthorization", "POST", authBody);
+
+
+  /*************** 5. SET DOWNLOADED ***************/
+  if (disposition === "TEST") {
+  log("Skipping SetDownloaded (Authorization) because disposition = TEST");
+  } else {
+  log("[4] Marking Authorization as Downloaded...");
+  await autoCall("/api/Authorization/SetDownloaded?id=" + authId, "POST");
+}
+
+  log("✔ AUTHORIZATION CYCLE COMPLETE");
+}
+
+
+/****************************************************
+ * AUTO CYCLE — REMITTANCE ONLY
+ ****************************************************/
+async function autoCycleRemittance() {
+  const disposition = document.getElementById("disposition").value;
+  const responseType = document.getElementById("responsetype").value;
+
+  log("========== REMITTANCE AUTO CYCLE ==========");
+  log("Response Type: " + responseType);
+
+  /*************** 1. GET NEW ***************/
+  log("[1] Fetching Remittance GetNew...");
+  const remitNew = await autoCall("/api/Claim/GetNew");
+
+  if (!remitNew?.Entities?.length) {
+    log("❌ No remittance entity returned.");
+    return;
+  }
+
+  const remitId = remitNew.Entities[0].ID;
+  log("✔ Remittance ID: " + remitId);
+
+  /*************** 2. VIEW ***************/
+  log("[2] Viewing Remittance...");
+  const remitView = await autoCall("/api/Claim/View?id=" + remitId);
+
+  if (!remitView?.Entity) {
+    log("❌ Remittance view failed.");
+    return;
+  }
+
+  parsedViewData = {
+    RASender: remitView.Entity.Header?.ReceiverID,
+    RAReceiver: remitView.Entity.Header?.SenderID,
+    PayerID: remitView.Entity.Header?.PayerID,
+    MultipleClaim: (remitView.Entity.Claim || []).map(c => ({
+      ClaimID: c.ID,
+      ProviderID: c.ProviderID,
+      FacilityID: c.Encounter?.FacilityID,
+      Activities: c.Activity || []
+    }))
+  };
+
+  log("✔ Parsed Remittance");
+
+  /*************** 3. BUILD JSON ***************/
+  const remitBody = buildPostRemittanceBody(parsedViewData, disposition);
+
+  document.getElementById("response").innerText =
+    "Remittance JSON to Upload:\n" + JSON.stringify(remitBody, null, 2);
+
+  const ok = confirm("Upload Remittance JSON?");
+  if (!ok) {
+    log("❌ User cancelled upload.");
+    return;
+  }
+
+  /*************** 4. POST REMITTANCE ***************/
+  log("[3] Uploading Remittance Response...");
+  window.lastRemitIDPayers.forEach((idp, idx) => {  log("Remittance Claim[" + idx + "] IDPayer: " + idp); 
+  });
+  window.lastRemitTransactionIDs.forEach((tid, idx) => {
+  log("Remittance Claim[" + idx + "] Original ID: " + tid);
+  });
+
+  await autoCall("/api/Claim/PostRemittance", "POST", remitBody);
+
+  /*************** 5. SET DOWNLOADED ***************/
+  if (disposition === "TEST") {
+  log("Skipping SetDownloaded (Remittance) because disposition = TEST");
+  } else {
+  log("[4] Marking Remittance as Downloaded...");
+  await autoCall("/api/Claim/SetDownloaded?id=" + remitId, "POST");
+  }
+
+  log("✔ REMITTANCE CYCLE COMPLETE");
+}
+
+
+/****************************************************
+ * MASTER AUTO CYCLE ENTRY POINT
+ ****************************************************/
 async function autoCycle() {
+ document.getElementById("response").innerHTML = "";
+  log("Auto cycle started...");
+  const mode = document.querySelector('input[name="mode"]:checked').value;
 
-    const mode = document.querySelector('input[name="mode"]:checked').value;
-    const responseType = document.getElementById("responsetype").value;
-    const disposition = document.getElementById("disposition").value;
+  if (mode === "auth") {
+    await autoCycleAuthorization();
+  } else {
+    await autoCycleRemittance();
+  }
 
-    const fullAuto = confirm("Run full automatic cycle?\nPress Cancel for Review Mode.");
-    const reviewMode = !fullAuto;
-
-    log("mode: " + mode);
-    log("[1] Auto Cycle Started");
-    log("Response Type: " + responseType);
-     log("Disposition: " + disposition);
-   
-  if (mode === "auth" ) {
-    // -------------------------------------------
-    // 1. AUTHORIZATION GET NEW
-    // -------------------------------------------
-    log("[2] Fetching Authorization GetNew...");
-    const authNew = await autoCall("/api/Authorization/GetNew");
-    
-    if (!authNew?.Entities?.length) {
-        log("❌ No authorization entity returned.");
-        return;
-    }
-
-    const authId = authNew.Entities[0].ID;
-    log("✔ Authorization ID: " + authId);
-
-    // -------------------------------------------
-    // 2. AUTHORIZATION VIEW
-    // -------------------------------------------
-    log("[3] Viewing Authorization...");
-    const authView = await autoCall("/api/Authorization/View?id=" + authId);
-
-    if (!authView?.Entity) {
-        log("❌ Authorization view failed.");
-        return;
-    }
-
-    parsedViewData = {
-        PAsenderID: authView.Entity.Header?.ReceiverID,
-        PAreceiverID: authView.Entity.Header?.SenderID,
-        PayerID: authView.Entity.Header?.PayerID,
-        TransactionID: authView.Entity.Authorization?.ID,
-        activities: authView.Entity.Authorization?.Activity || []
-    };
-
-    log("✔ Authorization Parsed");
-    // -------------------------------------------
-    // 3. POST AUTHORIZATION
-    // -------------------------------------------
-    const authBody = buildPostAuthorizationBody(parsedViewData, disposition);
-
-    if (reviewMode && !confirm("Upload Authorization JSON?"))
-        return;
-
-    log("[4] Uploading Authorization Response...");
-    await autoCall("/api/Authorization/PostAuthorization", "POST", authBody);
-    
-
-    // -------------------------------------------
-    // 4. SETDOWNLOADED AUTH
-    // -------------------------------------------
-    if(disposition === "PRODUCTION"){
-          log("[5] Marking Authorization as Downloaded...");
-        await autoCall("/api/Authorization/SetDownloaded?id=" + authId, "POST");
-
-    }
-    else {
-       log("[5] Prior request not set as downloaded for disposition TEST...\n    To change disposition select PostAuthorization and change the flag and ran the service again");
-         }
-    }
-
-  else {
-
-   // ===========================================
-    // REMITTANCE CYCLE
-    // ===========================================
-    log("==========================================");
-    log("Starting Remittance Cycle");
-
-
-    // -------------------------------------------
-    // 5. REMITTANCE GET NEW
-    // -------------------------------------------
-    log("[6] Fetching Remittance GetNew...");
-    const remitNew = await autoCall("/api/Claim/GetNew");
-
-    if (!remitNew?.Entities?.length) {
-        log("❌ No remittance entity returned.");
-        return;
-    }
-
-    const remitId = remitNew.Entities[0].ID;
-    log("✔ Remittance ID: " + remitId);
-
-
-    // -------------------------------------------
-    // 6. REMITTANCE VIEW
-    // -------------------------------------------
-    log("[7] Viewing Remittance...");
-    const remitView = await autoCall("/api/Claim/View?id=" + remitId);
-
-    parsedViewData = {
-        RASender: remitView.Entity.Header?.ReceiverID,
-        RAReceiver: remitView.Entity.Header?.SenderID,
-        PayerID: remitView.Entity.Header?.PayerID,
-        MultipleClaim: (remitView.Entity.Claim || []).map(c => ({
-            ClaimID: c.ID,
-            ProviderID: c.ProviderID,
-            FacilityID: c.Encounter?.FacilityID || null,
-            Activities: c.Activity || []
-        }))
-    };
-
-    log("✔ Remittance Parsed");
-
-
-    // -------------------------------------------
-    // 7. POST REMITTANCE
-    // -------------------------------------------
-    const remitBody = buildPostRemittanceBody(parsedViewData, disposition);
-
-    if (reviewMode && !confirm("Upload Remittance JSON?"))
-        return;
-
-    log("[8] Uploading Remittance Response...");
-    await autoCall("/api/Claim/PostRemittance", "POST", remitBody);
-
-
-    // -------------------------------------------
-    // 8. SETDOWNLOADED REMITTANCE
-    // -------------------------------------------
-    if(disposition=== "PRODUCTION"){
-    log("[9] Marking Claim as Downloaded...");
-    await autoCall("/api/Claim/SetDownloaded?id=" + remitId, "POST");
-    } else {
-    log("[9] Claim not mark as Downloaded for Disposition TEST...\n    To change disposition select PostRemittance and change the flag and ran the service again...");
-    }
-    // -------------------------------------------
-    // DONE
-    // -------------------------------------------
-    log("==========================================");
-    log("AUTO CYCLE COMPLETE ✔");
-}
-  
+  log("========== AUTO CYCLE DONE ==========");
 }
 
 
-// ===========================
-// BIND BUTTON
-// ===========================
+/****************************************************
+ * BUTTON BINDINGS
+ ****************************************************/
 document.getElementById("auto-cycle-btn").onclick = autoCycle;
 
-
-//==========================
-//Clear response history
-//==========================
-
+/****************************************************
+ * Clear logs  
+ ****************************************************/
 document.getElementById("clearPreviewBtn").addEventListener("click", () => {
   document.getElementById("response").innerHTML = "";
-  alert("Response history will be cleared.");
+  alert("Response logs will be cleared.");
 });
 
 
+
+
+
+
+  
