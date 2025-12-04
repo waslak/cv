@@ -1,9 +1,79 @@
+
+
+
+    /* Inspired by UAE “core + supporting” colour palette */
+    .main {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #F7F7F7; /* light neutral background (AEBlack-50 / neutral) */
+      color: #232528; /* AEBlack-800 for text */ 
+    }
+    header {
+      background-color: #003CFF; /* strong “Tech Blue” from supporting palette */ 
+      /* alternatively: #286CFF (lighter) or #0047CC etc */
+      padding: 20px;
+      text-align: center;
+      color: white;
+    }
+    .container {
+      max-width: 640px;
+      margin: 50px auto;
+      background-color: #FFFFFF; /* white card background */
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    h1 {
+      margin-top: 0;
+      color: #003CFF; /* keep heading in “Tech Blue” to tie with header */
+      text-align: center;
+      font-size: 26px;
+    }
+    .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      padding-top: 15px;
+    }
+    .menu a {
+      display: block;
+      text-decoration: none;
+      background-color: #E7F5FF; /* light supporting-blue background */ 
+      color: #003CFF;
+      font-weight: bold;
+      padding: 14px 20px;
+      border-radius: 6px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .menu a:hover {
+      background-color: #003CFF;
+      color: #FFFFFF;
+    }
+
+/*for view*/
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+.p1{
+    font-weight:bold;
+}
+.response {
+    margin-top: 20px;
+    padding: 10px;
+    background: #f9f9f9;
+    border: 1px solid #ccc;
+    white-space: pre-wrap;
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
-}
-.form-group {
-    margin-bottom: 15px;
 }
 label {
     display: block;
