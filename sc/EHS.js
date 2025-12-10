@@ -219,7 +219,12 @@ function attachSpecialtyAutocomplete(input) {
 function closeAllLists() {
   document.querySelectorAll(".autocomplete-items").forEach(el => el.remove());
 }
-
+// Attach autocomplete on new row
+document.getElementById("addRowBtn").addEventListener("click", () => {
+  const rows = document.querySelectorAll("#dataBody tr");
+  const lastRow = rows[rows.length - 1];
+  attachSpecialtyAutocomplete(lastRow.querySelector(".specialty"));
+});
 /* -------------------------------------------
    CLEAR PREVIEW BUTTON
 --------------------------------------------*/
